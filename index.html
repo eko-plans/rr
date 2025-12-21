@@ -7,8 +7,8 @@
 <style>
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #fff7d1, #ffffff);
         color: #333;
         overflow: hidden;
     }
@@ -20,43 +20,59 @@
         position: absolute;
         top: 0;
         left: 100%;
-        transition: left 0.6s ease;
-        background: #ffffff;
+        opacity: 0;
+        transition: all 0.8s ease;
+        background: linear-gradient(135deg, #fffef5, #ffffff);
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0,0,0,0.1);
     }
     .active {
         left: 0 !important;
+        opacity: 1 !important;
     }
     h1, h2, h3 {
         color: #f1c40f;
         margin-top: 0;
+        font-weight: 700;
     }
     .nav-btn {
         position: fixed;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 40px;
+        font-size: 45px;
         background: #f1c40f;
         color: #fff;
-        padding: 10px 18px;
+        padding: 14px 22px;
         cursor: pointer;
         user-select: none;
-        border-radius: 8px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: 0.3s;
+        z-index: 999;
     }
-    #prev { left: 20px; }
-    #next { right: 20px; }
+    .nav-btn:hover {
+        background: #d4ac0d;
+    }
+    #prev { left: 25px; }
+    #next { right: 25px; }
     .table {
-        width: 80%;
+        width: 90%;
         border-collapse: collapse;
         margin-top: 20px;
+        font-size: 18px;
     }
     .table th, .table td {
         border: 2px solid #f1c40f;
-        padding: 10px;
+        padding: 14px;
+        border-radius: 8px;
     }
     .section {
-        margin-top: 20px;
-        padding: 15px;
-        border-left: 6px solid #f1c40f;
+        margin-top: 25px;
+        padding: 20px;
+        border-left: 8px solid #f1c40f;
+        background: #fffef2;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 </style>
 </head>
@@ -231,8 +247,15 @@
 </div>
 
 <script>
+window.onload = () => {
     const slides = document.querySelectorAll('.slide');
     let index = 0;
+
+    // Smooth intro animation
+    slides.forEach((slide, i) => {
+        slide.style.transition = "all 0.9s ease-in-out";
+        if (i !== 0) slide.style.opacity = "0";
+    });
 
     document.getElementById('next').onclick = () => {
         slides[index].classList.remove('active');
@@ -245,6 +268,7 @@
         index = (index - 1 + slides.length) % slides.length;
         slides[index].classList.add('active');
     };
+};
 </script>
 </body>
 </html>
