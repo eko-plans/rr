@@ -5,6 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sprint Performance Report</title>
 <style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    @keyframes shimmer {
+        0% {
+            background-position: -1000px 0;
+        }
+        100% {
+            background-position: 1000px 0;
+        }
+    }
     body {
         margin: 0;
         font-family: 'Poppins', sans-serif;
@@ -21,7 +57,7 @@
         top: 0;
         left: 100%;
         opacity: 0;
-        transition: all 0.8s ease;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         background: linear-gradient(135deg, #fffef5, #ffffff);
         border-radius: 20px;
         box-shadow: 0 0 40px rgba(0,0,0,0.1);
@@ -30,10 +66,35 @@
         left: 0 !important;
         opacity: 1 !important;
     }
+    .active h1, .active h2, .active h3 {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .active .table {
+        animation: fadeInUp 1s ease-out 0.2s forwards;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+    .active .section {
+        animation: slideInRight 0.9s ease-out 0.3s forwards;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
     h1, h2, h3 {
         color: #f1c40f;
         margin-top: 0;
         font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        position: relative;
+    }
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #f1c40f, #d4ac0d);
+        border-radius: 2px;
     }
     .nav-btn {
         position: fixed;
@@ -62,22 +123,67 @@
         border-collapse: collapse;
         margin-top: 20px;
         font-size: 18px;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     .table th, .table td {
         border: 2px solid #f1c40f;
         padding: 14px;
-        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .table tr:hover td {
+        background: #fffbea;
+        transform: scale(1.02);
+    }
+    .table th {
+        background: linear-gradient(135deg, #f1c40f, #d4ac0d);
+        color: white;
+        font-weight: 600;
     }
     .section {
         width: 90%;
         margin: 40px auto;
         padding: 40px 50px;
         border-left: 12px solid #f1c40f;
-        background: #ffffff;
+        background: linear-gradient(135deg, #ffffff, #fffef5);
         border-radius: 18px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         font-size: 22px;
         line-height: 1.6;
+        position: relative;
+        overflow: hidden;
+    }
+    .section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(241,196,15,0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+    .section ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    .section ul li {
+        padding-left: 30px;
+        position: relative;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
+    }
+    .section ul li:hover {
+        transform: translateX(10px);
+    }
+    .section ul li::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: #f1c40f;
+        font-size: 24px;
+        font-weight: bold;
     }
 </style>
 </head>
